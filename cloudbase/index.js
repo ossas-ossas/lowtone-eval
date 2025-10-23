@@ -1,8 +1,6 @@
 // cloudbase/index.js - 云托管主服务文件
 const express = require('express');
 const cors = require('cors');
-const { initializeApp } = require('firebase-admin/app');
-const { getFirestore } = require('firebase-admin/firestore');
 
 const app = express();
 
@@ -10,15 +8,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// 初始化 Firebase Admin SDK
-const serviceAccount = require('./serviceAccountKey.json');
-initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://your-project-id.firebaseio.com'
-});
-
-const db = getFirestore();
 
 // 健康检查接口
 app.get('/', (req, res) => {
@@ -33,11 +22,13 @@ app.get('/', (req, res) => {
 // 获取量表字典数据
 app.get('/api/dictionary', async (req, res) => {
   try {
-    const snapshot = await db.collection('dictionary').get();
-    const dictionary = [];
-    snapshot.forEach(doc => {
-      dictionary.push({ id: doc.id, ...doc.data() });
-    });
+    // 模拟数据，实际部署时需要连接数据库
+    const dictionary = [
+      { id: '1', category: '听知觉', itemCode: 'AUD01', title: '能听到家长叫名字', weight: 1 },
+      { id: '2', category: '听知觉', itemCode: 'AUD02', title: '能辨别不同声音的方向', weight: 1 },
+      { id: '3', category: '触知觉', itemCode: 'TAC01', title: '能感知不同材质的触感', weight: 1 },
+      { id: '4', category: '触知觉', itemCode: 'TAC02', title: '能区分冷热温度', weight: 1 }
+    ];
     
     res.json({
       success: true,
@@ -68,20 +59,12 @@ app.post('/api/submissions', async (req, res) => {
     // 计算汇总数据
     const summary = calculateSummary(answers);
     
-    // 保存到数据库
-    const docRef = await db.collection('submissions').add({
-      childName: childName.trim(),
-      dob,
-      assessmentDate,
-      answers,
-      summary,
-      ownerOpenId,
-      createdAt: new Date()
-    });
+    // 模拟保存成功
+    const submissionId = 'sub_' + Date.now();
 
     res.json({
       success: true,
-      submissionId: docRef.id,
+      submissionId: submissionId,
       message: '保存成功'
     });
   } catch (error) {
@@ -105,26 +88,19 @@ app.get('/api/submissions', async (req, res) => {
       });
     }
 
-    let query = db.collection('submissions');
-    
-    // 根据角色设置查询条件
-    if (role === 'parent') {
-      query = query.where('ownerOpenId', '==', openId);
-    }
-    // 机构工作人员可以查看所有记录
-
-    // 分页查询
-    const skip = (page - 1) * pageSize;
-    const snapshot = await query
-      .orderBy('createdAt', 'desc')
-      .offset(skip)
-      .limit(parseInt(pageSize))
-      .get();
-
-    const submissions = [];
-    snapshot.forEach(doc => {
-      submissions.push({ id: doc.id, ...doc.data() });
-    });
+    // 模拟数据
+    const submissions = [
+      {
+        id: 'sub_1',
+        childName: '测试儿童',
+        dob: '2020-01-01',
+        assessmentDate: '2025-01-01',
+        summary: [
+          { category: '听知觉', numerator: 8, denominator: 10, ratio: 0.8, band: 'G' }
+        ],
+        createdAt: new Date().toISOString()
+      }
+    ];
 
     res.json({
       success: true,
@@ -149,18 +125,24 @@ app.get('/api/submissions/:id', async (req, res) => {
   try {
     const { id } = req.params;
     
-    const doc = await db.collection('submissions').doc(id).get();
-    
-    if (!doc.exists) {
-      return res.status(404).json({
-        success: false,
-        message: '未找到相关数据'
-      });
-    }
+    // 模拟数据
+    const submission = {
+      id: id,
+      childName: '测试儿童',
+      dob: '2020-01-01',
+      assessmentDate: '2025-01-01',
+      answers: [
+        { category: '听知觉', value: 'yes' }
+      ],
+      summary: [
+        { category: '听知觉', numerator: 8, denominator: 10, ratio: 0.8, band: 'G' }
+      ],
+      createdAt: new Date().toISOString()
+    };
 
     res.json({
       success: true,
-      data: { id: doc.id, ...doc.data() }
+      data: submission
     });
   } catch (error) {
     console.error('获取评估记录失败:', error);
@@ -183,22 +165,7 @@ app.post('/api/reports/generate', async (req, res) => {
       });
     }
 
-    // 获取提交数据
-    const doc = await db.collection('submissions').doc(submissionId).get();
-    
-    if (!doc.exists) {
-      return res.status(404).json({
-        success: false,
-        message: '未找到相关数据'
-      });
-    }
-
-    const submission = doc.data();
-    
-    // 生成报告
-    const reportData = generateReport(submission);
-    
-    // 这里可以集成文件存储服务，生成并返回报告下载链接
+    // 模拟报告生成
     res.json({
       success: true,
       reportUrl: 'https://your-domain.com/reports/' + submissionId + '.pdf',

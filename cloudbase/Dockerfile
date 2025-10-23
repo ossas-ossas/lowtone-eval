@@ -1,6 +1,9 @@
 # Dockerfile for 低张儿综合功能发育量表API服务
 FROM node:16-alpine
 
+# 安装ca-certificates包以支持证书更新
+RUN apk add --no-cache ca-certificates
+
 # 设置工作目录
 WORKDIR /app
 
