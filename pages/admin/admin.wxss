@@ -1,0 +1,311 @@
+/* pages/admin/admin.wxss */
+.container {
+  padding: 20rpx;
+  background: #F5F5F5;
+  min-height: 100vh;
+}
+
+.page-header {
+  background: white;
+  border-radius: 16rpx;
+  padding: 40rpx;
+  margin-bottom: 20rpx;
+  text-align: center;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15rpx;
+}
+
+.page-desc {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.stats-section {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.stats-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 2rpx solid #4A90E2;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+}
+
+.stats-item {
+  background: #F8F9FA;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  text-align: center;
+}
+
+.stats-value {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #4A90E2;
+  margin-bottom: 10rpx;
+}
+
+.stats-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.filter-section {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.filter-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.filter-row {
+  display: flex;
+  gap: 15rpx;
+  margin-bottom: 20rpx;
+}
+
+.filter-row:last-child {
+  margin-bottom: 0;
+}
+
+.filter-button {
+  flex: 1;
+  background: #F8F9FA;
+  border: 2rpx solid #E8E8E8;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  font-size: 26rpx;
+  color: #333;
+  text-align: center;
+}
+
+.filter-button:active {
+  background: #E8F4FD;
+  border-color: #4A90E2;
+}
+
+.records-section {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.records-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding-bottom: 15rpx;
+  border-bottom: 2rpx solid #4A90E2;
+}
+
+.records-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.records-count {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.record-item {
+  background: #F8F9FA;
+  border-radius: 12rpx;
+  padding: 25rpx;
+  border: 2rpx solid #E8E8E8;
+}
+
+.record-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.record-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.record-date {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.record-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15rpx;
+  margin-bottom: 20rpx;
+}
+
+.summary-item {
+  text-align: center;
+}
+
+.summary-category {
+  font-size: 22rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+.summary-band {
+  font-size: 20rpx;
+  padding: 6rpx 12rpx;
+  border-radius: 16rpx;
+  font-weight: 500;
+}
+
+.band-n {
+  background: rgba(24, 144, 255, 0.1);
+  color: #1890FF;
+}
+
+.band-g {
+  background: rgba(82, 196, 26, 0.1);
+  color: #52C41A;
+}
+
+.band-f {
+  background: rgba(250, 173, 20, 0.1);
+  color: #FAAD14;
+}
+
+.band-p {
+  background: rgba(255, 77, 79, 0.1);
+  color: #FF4D4F;
+}
+
+.record-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.record-time {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.record-actions {
+  display: flex;
+  gap: 10rpx;
+}
+
+.action-button {
+  border-radius: 8rpx;
+  padding: 15rpx 25rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  border: none;
+}
+
+.action-button.primary {
+  background: #4A90E2;
+  color: white;
+}
+
+.action-button.primary:active {
+  background: #357ABD;
+}
+
+.action-button.secondary {
+  background: #F0F0F0;
+  color: #666;
+}
+
+.action-button.secondary:active {
+  background: #E0E0E0;
+}
+
+.action-button.small {
+  background: #52C41A;
+  color: white;
+  padding: 10rpx 20rpx;
+  font-size: 22rpx;
+}
+
+.action-button.small:active {
+  background: #389E0D;
+}
+
+.action-button:disabled {
+  background: #CCCCCC;
+  color: #999;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80rpx 40rpx;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 30rpx;
+}
+
+.empty-text {
+  font-size: 32rpx;
+  color: #666;
+}
+
+.loading-state {
+  text-align: center;
+  padding: 40rpx;
+}
+
+.loading-text {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.action-section {
+  padding: 40rpx 0;
+  display: flex;
+  gap: 20rpx;
+}
+
+.action-button {
+  flex: 1;
+  border-radius: 50rpx;
+  padding: 25rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  border: none;
+}

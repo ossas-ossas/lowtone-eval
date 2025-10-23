@@ -1,0 +1,240 @@
+/* app.wxss */
+page {
+  background-color: #F5F5F5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+.container {
+  padding: 20rpx;
+}
+
+.card {
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 20rpx;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  color: #666666;
+  margin-bottom: 15rpx;
+}
+
+.text {
+  font-size: 26rpx;
+  color: #333333;
+  line-height: 1.6;
+}
+
+.button {
+  background: #4A90E2;
+  color: #FFFFFF;
+  border-radius: 8rpx;
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+  text-align: center;
+  margin: 20rpx 0;
+}
+
+.button:active {
+  background: #357ABD;
+}
+
+.button.secondary {
+  background: #F0F0F0;
+  color: #666666;
+}
+
+.button.secondary:active {
+  background: #E0E0E0;
+}
+
+.button.success {
+  background: #52C41A;
+}
+
+.button.success:active {
+  background: #389E0D;
+}
+
+.button.warning {
+  background: #FAAD14;
+}
+
+.button.warning:active {
+  background: #D48806;
+}
+
+.button.danger {
+  background: #FF4D4F;
+}
+
+.button.danger:active {
+  background: #CF1322;
+}
+
+/* 评分等级颜色 */
+.band-normal {
+  color: #1890FF;
+  background-color: rgba(24, 144, 255, 0.1);
+}
+
+.band-good {
+  color: #52C41A;
+  background-color: rgba(82, 196, 26, 0.1);
+}
+
+.band-fair {
+  color: #FAAD14;
+  background-color: rgba(250, 173, 20, 0.1);
+}
+
+.band-poor {
+  color: #FF4D4F;
+  background-color: rgba(255, 77, 79, 0.1);
+}
+
+/* 表单样式 */
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #333333;
+  margin-bottom: 15rpx;
+  font-weight: 500;
+}
+
+.form-input {
+  background: #FFFFFF;
+  border: 2rpx solid #E8E8E8;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  font-size: 26rpx;
+}
+
+.form-input:focus {
+  border-color: #4A90E2;
+}
+
+/* 选项按钮 */
+.option-button {
+  display: inline-block;
+  padding: 15rpx 30rpx;
+  margin: 10rpx 15rpx 10rpx 0;
+  border: 2rpx solid #E8E8E8;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  background: #FFFFFF;
+  color: #666666;
+}
+
+.option-button.selected {
+  border-color: #4A90E2;
+  background: #4A90E2;
+  color: #FFFFFF;
+}
+
+.option-button.yes.selected {
+  border-color: #52C41A;
+  background: #52C41A;
+}
+
+.option-button.no.selected {
+  border-color: #FF4D4F;
+  background: #FF4D4F;
+}
+
+.option-button.unknown.selected {
+  border-color: #FAAD14;
+  background: #FAAD14;
+}
+
+/* 折叠面板 */
+.collapse-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  background: #F8F9FA;
+  border-radius: 8rpx;
+  margin-bottom: 10rpx;
+}
+
+.collapse-title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333333;
+}
+
+.collapse-icon {
+  font-size: 24rpx;
+  color: #666666;
+  transition: transform 0.3s;
+}
+
+.collapse-icon.expanded {
+  transform: rotate(180deg);
+}
+
+.collapse-content {
+  padding: 20rpx;
+  background: #FFFFFF;
+  border-radius: 8rpx;
+}
+
+/* 统计信息 */
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #F0F0F0;
+}
+
+.stat-item:last-child {
+  border-bottom: none;
+}
+
+.stat-label {
+  font-size: 26rpx;
+  color: #333333;
+}
+
+.stat-value {
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+/* 加载状态 */
+.loading {
+  text-align: center;
+  padding: 40rpx;
+  color: #666666;
+}
+
+/* 空状态 */
+.empty {
+  text-align: center;
+  padding: 80rpx 40rpx;
+  color: #999999;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 26rpx;
+}

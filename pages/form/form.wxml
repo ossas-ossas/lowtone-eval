@@ -1,0 +1,123 @@
+<!-- pages/form/form.wxml -->
+<view class="container">
+  <!-- 基本信息 -->
+  <view class="form-section">
+    <view class="section-title">基本信息</view>
+    <view class="form-item">
+      <view class="form-label">儿童姓名</view>
+      <input class="form-input" 
+             placeholder="请输入儿童姓名" 
+             value="{{formData.childName}}"
+             bindinput="onChildNameInput" />
+    </view>
+    
+    <view class="form-item">
+      <view class="form-label">出生日期</view>
+      <picker mode="date" 
+              value="{{formData.dob}}" 
+              bindchange="onDobChange">
+        <view class="picker-input">
+          {{formData.dob || '请选择出生日期'}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="form-item">
+      <view class="form-label">评估日期</view>
+      <picker mode="date" 
+              value="{{formData.assessmentDate}}" 
+              bindchange="onAssessmentDateChange">
+        <view class="picker-input">
+          {{formData.assessmentDate || '请选择评估日期'}}
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 量表评估 -->
+  <view class="form-section">
+    <view class="section-title">量表评估</view>
+    <view class="section-desc">请根据儿童实际情况，选择"是"、"否"或"不确定"</view>
+    
+    <!-- 类别列表 -->
+    <view class="category-list">
+      <view class="category-item" 
+            wx:for="{{categories}}" 
+            wx:key="category"
+            wx:for-item="category">
+        <view class="category-header" bindtap="toggleCategory" data-category="{{category}}">
+          <view class="category-title">{{category}}</view>
+          <view class="category-progress">
+            {{getCategoryProgress(category)}}/{{getCategoryTotal(category)}}
+          </view>
+          <view class="category-icon {{expandedCategories.includes(category) ? 'expanded' : ''}}">
+            ▼
+          </view>
+        </view>
+        
+        <view class="category-content {{expandedCategories.includes(category) ? 'show' : ''}}">
+          <view class="question-list">
+            <view class="question-item" 
+                  wx:for="{{getItemsByCategory(category)}}" 
+                  wx:key="itemCode"
+                  wx:for-item="item">
+              <view class="question-title">{{item.title}}</view>
+              <view class="question-options">
+                <view class="option-button {{getAnswerValue(category, item.itemCode) === 'yes' ? 'yes selected' : 'yes'}}"
+                      bindtap="selectAnswer"
+                      data-category="{{category}}"
+                      data-itemCode="{{item.itemCode}}"
+                      data-value="yes">
+                  是
+                </view>
+                <view class="option-button {{getAnswerValue(category, item.itemCode) === 'no' ? 'no selected' : 'no'}}"
+                      bindtap="selectAnswer"
+                      data-category="{{category}}"
+                      data-itemCode="{{item.itemCode}}"
+                      data-value="no">
+                  否
+                </view>
+                <view class="option-button {{getAnswerValue(category, item.itemCode) === 'unknown' ? 'unknown selected' : 'unknown'}}"
+                      bindtap="selectAnswer"
+                      data-category="{{category}}"
+                      data-itemCode="{{item.itemCode}}"
+                      data-value="unknown">
+                  不确定
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 统计预览 -->
+  <view class="form-section" wx:if="{{summary.length > 0}}">
+    <view class="section-title">评估预览</view>
+    <view class="summary-list">
+      <view class="summary-item" 
+            wx:for="{{summary}}" 
+            wx:key="category"
+            wx:for-item="item">
+        <view class="summary-category">{{item.category}}</view>
+        <view class="summary-ratio">{{item.numerator}}/{{item.denominator}}</view>
+        <view class="summary-percentage">{{(item.ratio * 100).toFixed(1)}}%</view>
+        <view class="summary-band band-{{item.band.toLowerCase()}}">
+          {{getBandName(item.band)}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="submit-section">
+    <button class="submit-button" 
+            bindtap="submitForm" 
+            loading="{{submitting}}"
+            disabled="{{!canSubmit}}">
+      {{submitting ? '提交中...' : '提交评估'}}
+    </button>
+    <view class="submit-tip">提交后将生成详细评估报告</view>
+  </view>
+</view>

@@ -1,0 +1,91 @@
+<!-- pages/records/records.wxml -->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="page-title">历史记录</view>
+    <view class="page-desc">查看过往评估结果</view>
+  </view>
+
+  <!-- 筛选条件 -->
+  <view class="filter-section">
+    <view class="filter-item">
+      <picker mode="date" 
+              value="{{filterDate}}" 
+              bindchange="onFilterDateChange">
+        <view class="filter-button">
+          <text class="filter-icon">📅</text>
+          <text class="filter-text">{{filterDate || '选择日期'}}</text>
+        </view>
+      </picker>
+    </view>
+    
+    <view class="filter-item">
+      <picker mode="selector" 
+              range="{{childNames}}" 
+              value="{{filterChildIndex}}"
+              bindchange="onFilterChildChange">
+        <view class="filter-button">
+          <text class="filter-icon">👶</text>
+          <text class="filter-text">{{filterChildName || '选择儿童'}}</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 记录列表 -->
+  <view class="records-section">
+    <view class="records-header">
+      <view class="records-title">评估记录</view>
+      <view class="records-count">共{{records.length}}条记录</view>
+    </view>
+
+    <view class="records-list" wx:if="{{records.length > 0}}">
+      <view class="record-item" 
+            wx:for="{{records}}" 
+            wx:key="_id"
+            wx:for-item="record"
+            bindtap="viewRecord"
+            data-record="{{record}}">
+        <view class="record-header">
+          <view class="record-name">{{record.childName}}</view>
+          <view class="record-date">{{record.assessmentDate}}</view>
+        </view>
+        
+        <view class="record-summary">
+          <view class="summary-item" 
+                wx:for="{{record.summary}}" 
+                wx:key="category"
+                wx:for-item="item">
+            <view class="summary-category">{{item.category}}</view>
+            <view class="summary-band band-{{item.band.toLowerCase()}}">
+              {{getBandName(item.band)}}
+            </view>
+          </view>
+        </view>
+        
+        <view class="record-footer">
+          <view class="record-time">{{formatTime(record.createdAt)}}</view>
+          <view class="record-arrow">></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{records.length === 0 && !loading}}">
+      <view class="empty-icon">📊</view>
+      <view class="empty-text">暂无评估记录</view>
+      <view class="empty-desc">开始第一次评估吧</view>
+      <button class="empty-button" bindtap="startAssessment">开始评估</button>
+    </view>
+
+    <!-- 加载状态 -->
+    <view class="loading-state" wx:if="{{loading}}">
+      <view class="loading-text">加载中...</view>
+    </view>
+  </view>
+
+  <!-- 加载更多 -->
+  <view class="load-more" wx:if="{{hasMore && !loading}}">
+    <button class="load-more-button" bindtap="loadMore">加载更多</button>
+  </view>
+</view>

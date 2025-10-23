@@ -1,0 +1,11 @@
+{
+  "name": "generateReport",
+  "version": "1.0.0",
+  "description": "生成评估报告",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3",
+    "pizzip": "^3.1.4",
+    "docx-templater": "^7.0.2"
+  }
+}

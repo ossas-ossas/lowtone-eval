@@ -1,0 +1,12 @@
+<!-- ec-canvas/ec-canvas.wxml -->
+<canvas 
+  canvas-id="{{canvasId}}" 
+  id="{{canvasId}}" 
+  class="ec-canvas"
+  bindtouchstart="touchStart"
+  bindtouchmove="touchMove"
+  bindtouchend="touchEnd"
+  bindtap="tap"
+  disable-scroll="{{disableScroll}}"
+  style="width: {{width}}px; height: {{height}}px;">
+</canvas>

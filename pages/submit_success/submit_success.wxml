@@ -1,0 +1,69 @@
+<!-- pages/submit_success/submit_success.wxml -->
+<view class="container">
+  <!-- 成功提示 -->
+  <view class="success-section">
+    <view class="success-icon">✅</view>
+    <view class="success-title">评估提交成功</view>
+    <view class="success-desc">感谢您的配合，评估数据已保存</view>
+  </view>
+
+  <!-- 评估信息 -->
+  <view class="info-section" wx:if="{{submission}}">
+    <view class="info-title">评估信息</view>
+    <view class="info-content">
+      <view class="info-item">
+        <text class="info-label">儿童姓名：</text>
+        <text class="info-value">{{submission.childName}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">评估日期：</text>
+        <text class="info-value">{{submission.assessmentDate}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">提交时间：</text>
+        <text class="info-value">{{submission.createdAt}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 快速统计 -->
+  <view class="stats-section" wx:if="{{submission && submission.summary}}">
+    <view class="stats-title">评估概览</view>
+    <view class="stats-grid">
+      <view class="stats-item" 
+            wx:for="{{submission.summary}}" 
+            wx:key="category"
+            wx:for-item="item">
+        <view class="stats-category">{{item.category}}</view>
+        <view class="stats-ratio">{{item.numerator}}/{{item.denominator}}</view>
+        <view class="stats-band band-{{item.band.toLowerCase()}}">
+          {{getBandName(item.band)}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <button class="action-button primary" bindtap="generateReport" loading="{{generatingReport}}">
+      {{generatingReport ? '生成中...' : '生成详细报告'}}
+    </button>
+    <button class="action-button secondary" bindtap="viewPreview">
+      查看图表预览
+    </button>
+    <button class="action-button secondary" bindtap="goHome">
+      返回首页
+    </button>
+  </view>
+
+  <!-- 提示信息 -->
+  <view class="tip-section">
+    <view class="tip-title">温馨提示</view>
+    <view class="tip-content">
+      <view class="tip-item">• 报告生成需要1-2分钟，请耐心等待</view>
+      <view class="tip-item">• 报告链接有效期为30天</view>
+      <view class="tip-item">• 建议定期进行重新评估</view>
+      <view class="tip-item">• 如有疑问请联系专业机构</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,23 @@
+{
+  "name": "low-tension-assessment",
+  "version": "1.0.0",
+  "description": "低张儿综合功能发育量表数字化评估系统",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "微信小程序",
+    "儿童发育评估",
+    "量表",
+    "云开发"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "echarts": "^5.4.3"
+  },
+  "devDependencies": {
+    "miniprogram-api-typings": "^3.12.0"
+  }
+}

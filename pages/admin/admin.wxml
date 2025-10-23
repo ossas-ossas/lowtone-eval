@@ -1,0 +1,132 @@
+<!-- pages/admin/admin.wxml -->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="page-title">管理后台</view>
+    <view class="page-desc">机构数据管理</view>
+  </view>
+
+  <!-- 统计概览 -->
+  <view class="stats-section">
+    <view class="stats-title">数据概览</view>
+    <view class="stats-grid">
+      <view class="stats-item">
+        <view class="stats-value">{{totalRecords}}</view>
+        <view class="stats-label">总评估数</view>
+      </view>
+      <view class="stats-item">
+        <view class="stats-value">{{totalChildren}}</view>
+        <view class="stats-label">评估儿童</view>
+      </view>
+      <view class="stats-item">
+        <view class="stats-value">{{todayRecords}}</view>
+        <view class="stats-label">今日评估</view>
+      </view>
+      <view class="stats-item">
+        <view class="stats-value">{{monthRecords}}</view>
+        <view class="stats-label">本月评估</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 筛选条件 -->
+  <view class="filter-section">
+    <view class="filter-title">筛选条件</view>
+    <view class="filter-row">
+      <picker mode="date" 
+              value="{{filterStartDate}}" 
+              bindchange="onFilterStartDateChange">
+        <view class="filter-button">
+          <text class="filter-text">{{filterStartDate || '开始日期'}}</text>
+        </view>
+      </picker>
+      
+      <picker mode="date" 
+              value="{{filterEndDate}}" 
+              bindchange="onFilterEndDateChange">
+        <view class="filter-button">
+          <text class="filter-text">{{filterEndDate || '结束日期'}}</text>
+        </view>
+      </picker>
+    </view>
+    
+    <view class="filter-row">
+      <picker mode="selector" 
+              range="{{childNames}}" 
+              value="{{filterChildIndex}}"
+              bindchange="onFilterChildChange">
+        <view class="filter-button">
+          <text class="filter-text">{{filterChildName || '选择儿童'}}</text>
+        </view>
+      </picker>
+      
+      <button class="filter-button" bindtap="applyFilter">
+        应用筛选
+      </button>
+    </view>
+  </view>
+
+  <!-- 记录列表 -->
+  <view class="records-section">
+    <view class="records-header">
+      <view class="records-title">评估记录</view>
+      <view class="records-count">共{{filteredRecords.length}}条记录</view>
+    </view>
+
+    <view class="records-list" wx:if="{{filteredRecords.length > 0}}">
+      <view class="record-item" 
+            wx:for="{{filteredRecords}}" 
+            wx:key="_id"
+            wx:for-item="record"
+            bindtap="viewRecord"
+            data-record="{{record}}">
+        <view class="record-header">
+          <view class="record-name">{{record.childName}}</view>
+          <view class="record-date">{{record.assessmentDate}}</view>
+        </view>
+        
+        <view class="record-summary">
+          <view class="summary-item" 
+                wx:for="{{record.summary}}" 
+                wx:key="category"
+                wx:for-item="item">
+            <view class="summary-category">{{item.category}}</view>
+            <view class="summary-band band-{{item.band.toLowerCase()}}">
+              {{getBandName(item.band)}}
+            </view>
+          </view>
+        </view>
+        
+        <view class="record-footer">
+          <view class="record-time">{{formatTime(record.createdAt)}}</view>
+          <view class="record-actions">
+            <button class="action-button small" bindtap="generateReport" data-record="{{record}}">
+              生成报告
+            </button>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{filteredRecords.length === 0 && !loading}}">
+      <view class="empty-icon">📊</view>
+      <view class="empty-text">暂无数据</view>
+    </view>
+
+    <!-- 加载状态 -->
+    <view class="loading-state" wx:if="{{loading}}">
+      <view class="loading-text">加载中...</view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <button class="action-button primary" bindtap="exportAllData" loading="{{exporting}}">
+      {{exporting ? '导出中...' : '导出全部数据'}}
+    </button>
+    <button class="action-button secondary" bindtap="refreshData">
+      刷新数据
+    </button>
+  </view>
+</view>

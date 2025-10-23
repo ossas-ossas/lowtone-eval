@@ -1,0 +1,102 @@
+<!-- pages/detail/detail.wxml -->
+<view class="container">
+  <!-- 基本信息 -->
+  <view class="info-section">
+    <view class="info-title">评估信息</view>
+    <view class="info-content">
+      <view class="info-item">
+        <text class="info-label">儿童姓名：</text>
+        <text class="info-value">{{submission.childName}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">出生日期：</text>
+        <text class="info-value">{{submission.dob}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">评估日期：</text>
+        <text class="info-value">{{submission.assessmentDate}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">评估年龄：</text>
+        <text class="info-value">{{childAge}}个月</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 雷达图 -->
+  <view class="chart-section">
+    <view class="chart-title">功能发育雷达图</view>
+    <view class="chart-container">
+      <ec-canvas id="radar-chart" 
+                 canvas-id="radar-chart" 
+                 ec="{{ecRadar}}"
+                 class="chart-canvas">
+      </ec-canvas>
+    </view>
+  </view>
+
+  <!-- 柱状图 -->
+  <view class="chart-section">
+    <view class="chart-title">功能发育柱状图</view>
+    <view class="chart-container">
+      <ec-canvas id="bar-chart" 
+                 canvas-id="bar-chart" 
+                 ec="{{ecBar}}"
+                 class="chart-canvas">
+      </ec-canvas>
+    </view>
+  </view>
+
+  <!-- 详细统计 -->
+  <view class="stats-section">
+    <view class="stats-title">详细统计</view>
+    <view class="stats-list">
+      <view class="stats-item" 
+            wx:for="{{submission.summary}}" 
+            wx:key="category"
+            wx:for-item="item">
+        <view class="stats-category">{{item.category}}</view>
+        <view class="stats-ratio">{{item.numerator}}/{{item.denominator}}</view>
+        <view class="stats-percentage">{{(item.ratio * 100).toFixed(1)}}%</view>
+        <view class="stats-band band-{{item.band.toLowerCase()}}">
+          {{getBandName(item.band)}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 总体评估 -->
+  <view class="overall-section">
+    <view class="overall-title">总体评估</view>
+    <view class="overall-content">
+      <view class="overall-level {{overallLevel.color}}">
+        {{overallLevel.level}}
+      </view>
+      <view class="overall-desc">{{overallLevel.description}}</view>
+    </view>
+  </view>
+
+  <!-- 建议 -->
+  <view class="advice-section" wx:if="{{advice.length > 0}}">
+    <view class="advice-title">专业建议</view>
+    <view class="advice-content">
+      <view class="advice-item" 
+            wx:for="{{advice}}" 
+            wx:key="index"
+            wx:for-item="item">
+        <text class="advice-bullet">•</text>
+        <text class="advice-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <button class="action-button primary" bindtap="generateReport" loading="{{generatingReport}}">
+      {{generatingReport ? '生成中...' : '生成报告'}}
+    </button>
+    <button class="action-button secondary" bindtap="goBack">
+      返回
+    </button>
+  </view>
+</view>

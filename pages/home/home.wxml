@@ -1,0 +1,96 @@
+<!-- pages/home/home.wxml -->
+<view class="container">
+  <!-- 欢迎区域 -->
+  <view class="welcome-section">
+    <view class="welcome-title">低张儿综合功能发育量表</view>
+    <view class="welcome-subtitle">数字化评估系统</view>
+    <view class="welcome-desc">
+      通过科学的量表评估，全面了解儿童各项功能发育水平，为个性化训练提供依据
+    </view>
+  </view>
+
+  <!-- 用户信息 -->
+  <view class="user-section" wx:if="{{userInfo}}">
+    <view class="user-card">
+      <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+      <view class="user-info">
+        <view class="nickname">{{userInfo.nickName}}</view>
+        <view class="role">{{userRoleText}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-section">
+    <view class="menu-title">功能菜单</view>
+    
+    <!-- 家长功能 -->
+    <view class="menu-group" wx:if="{{userRole === 'parent'}}">
+      <view class="menu-item" bindtap="startAssessment">
+        <view class="menu-icon">📝</view>
+        <view class="menu-content">
+          <view class="menu-name">开始评估</view>
+          <view class="menu-desc">填写量表，评估儿童发育水平</view>
+        </view>
+        <view class="menu-arrow">></view>
+      </view>
+      
+      <view class="menu-item" bindtap="viewRecords">
+        <view class="menu-icon">📊</view>
+        <view class="menu-content">
+          <view class="menu-name">历史记录</view>
+          <view class="menu-desc">查看过往评估结果</view>
+        </view>
+        <view class="menu-arrow">></view>
+      </view>
+    </view>
+
+    <!-- 机构功能 -->
+    <view class="menu-group" wx:if="{{userRole === 'staff'}}">
+      <view class="menu-item" bindtap="viewAllRecords">
+        <view class="menu-icon">👥</view>
+        <view class="menu-content">
+          <view class="menu-name">全部记录</view>
+          <view class="menu-desc">查看所有用户评估记录</view>
+        </view>
+        <view class="menu-arrow">></view>
+      </view>
+      
+      <view class="menu-item" bindtap="exportData">
+        <view class="menu-icon">📤</view>
+        <view class="menu-content">
+          <view class="menu-name">数据导出</view>
+          <view class="menu-desc">导出评估数据报告</view>
+        </view>
+        <view class="menu-arrow">></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 登录按钮 -->
+  <view class="login-section" wx:if="{{!userInfo}}">
+    <button class="login-button" bindtap="handleLogin" loading="{{loginLoading}}">
+      {{loginLoading ? '登录中...' : '微信登录'}}
+    </button>
+    <view class="login-tip">登录后可使用完整功能</view>
+  </view>
+
+  <!-- 使用说明 -->
+  <view class="help-section">
+    <view class="help-title">使用说明</view>
+    <view class="help-content">
+      <view class="help-item">
+        <text class="help-number">1</text>
+        <text class="help-text">家长根据实际情况填写量表题目</text>
+      </view>
+      <view class="help-item">
+        <text class="help-number">2</text>
+        <text class="help-text">系统自动计算各项功能发育水平</text>
+      </view>
+      <view class="help-item">
+        <text class="help-number">3</text>
+        <text class="help-text">生成详细的评估报告和建议</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,51 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/form/form",
+    "pages/preview/preview",
+    "pages/submit_success/submit_success",
+    "pages/records/records",
+    "pages/admin/admin",
+    "pages/detail/detail"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#4A90E2",
+    "navigationBarTitleText": "低张儿综合功能发育量表",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F5F5F5"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#4A90E2",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home_selected.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/records/records",
+        "iconPath": "images/records.png",
+        "selectedIconPath": "images/records_selected.png",
+        "text": "历史记录"
+      },
+      {
+        "pagePath": "pages/admin/admin",
+        "iconPath": "images/admin.png",
+        "selectedIconPath": "images/admin_selected.png",
+        "text": "管理"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userInfo": {
+      "desc": "用于获取用户信息"
+    }
+  },
+  "requiredBackgroundModes": ["audio"],
+  "sitemapLocation": "sitemap.json"
+}
