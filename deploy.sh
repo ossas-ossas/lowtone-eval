@@ -28,4 +28,5 @@ tcb hosting deploy
 
 echo "部署完成！"
 echo "访问地址: https://express-494j-194862-5-1383882885.sh.run.tcloudbase.com/"
+echo "端口: 80"
 echo "API文档: https://express-494j-194862-5-1383882885.sh.run.tcloudbase.com/api/docs"

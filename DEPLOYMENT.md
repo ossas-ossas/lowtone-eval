@@ -67,6 +67,7 @@ tcb hosting deploy
 ### 3.4 配置环境变量
 在云托管控制台配置以下环境变量：
 - `NODE_ENV`: production
+- `PORT`: 80
 - `DB_URL`: 数据库连接字符串
 - `STORAGE_BUCKET`: 存储桶名称
 

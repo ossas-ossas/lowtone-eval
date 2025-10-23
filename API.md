@@ -3,6 +3,7 @@
 ## 基础信息
 
 - **API地址**: https://express-494j-194862-5-1383882885.sh.run.tcloudbase.com
+- **端口**: 80
 - **版本**: v1.0.0
 - **格式**: JSON
 
