@@ -8,8 +8,23 @@ if %errorlevel% neq 0 (
     npm install -g @cloudbase/cli
 )
 
+REM 检查Dockerfile是否存在
+if not exist "Dockerfile" (
+    echo 错误: 未找到Dockerfile文件
+    echo 请确保项目根目录存在Dockerfile
+    pause
+    exit /b 1
+)
+
 REM 进入云托管目录
 cd cloudbase
+
+REM 检查cloudbase目录下的Dockerfile
+if not exist "Dockerfile" (
+    echo 错误: cloudbase目录下未找到Dockerfile文件
+    pause
+    exit /b 1
+)
 
 REM 安装依赖
 echo 安装依赖...

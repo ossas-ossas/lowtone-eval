@@ -9,8 +9,21 @@ if ! command -v tcb &> /dev/null; then
     npm install -g @cloudbase/cli
 fi
 
+# 检查Dockerfile是否存在
+if [ ! -f "Dockerfile" ]; then
+    echo "错误: 未找到Dockerfile文件"
+    echo "请确保项目根目录存在Dockerfile"
+    exit 1
+fi
+
 # 进入云托管目录
 cd cloudbase
+
+# 检查cloudbase目录下的Dockerfile
+if [ ! -f "Dockerfile" ]; then
+    echo "错误: cloudbase目录下未找到Dockerfile文件"
+    exit 1
+fi
 
 # 安装依赖
 echo "安装依赖..."

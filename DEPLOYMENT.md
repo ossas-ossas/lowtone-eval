@@ -52,7 +52,32 @@ npm install -g @cloudbase/cli
 tcb login
 ```
 
-### 3.3 部署云托管服务
+### 3.3 准备Dockerfile
+确保项目根目录和cloudbase目录都存在Dockerfile文件：
+
+**根目录Dockerfile**:
+```dockerfile
+FROM node:16-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --production
+COPY . .
+EXPOSE 80
+CMD ["node", "index.js"]
+```
+
+**cloudbase/Dockerfile**:
+```dockerfile
+FROM node:16-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --production
+COPY . .
+EXPOSE 80
+CMD ["node", "index.js"]
+```
+
+### 3.4 部署到云托管
 ```bash
 # 进入云托管目录
 cd cloudbase
@@ -64,7 +89,7 @@ npm install
 tcb hosting deploy
 ```
 
-### 3.4 配置环境变量
+### 3.5 配置环境变量
 在云托管控制台配置以下环境变量：
 - `NODE_ENV`: production
 - `PORT`: 80
